@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Thermostat</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/thermostat.css')}}">
+        <script type="text/javascript">
+            var arrowPath = "{{url_for('static', filename='svg/down-arrow.svg')}}"
+        </script>
+    </head>
+    <body oncontextmenu="return false;">
+        <div class="wrapper">
+            <div id="root">
+                <!-- Root div for react app -->
+            </div>
+        </div>
+
+
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+
+
+
+        <script type="text/javascript" src="{{url_for('static', filename='thermostat.js')}}"></script>
+    </body>
+</html>

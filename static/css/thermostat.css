@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* cursor: none; */
+
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: #263238;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: none;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 2px;
+    position: absolute;
+
+
+    -webkit-box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    -moz-box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#root {
+    display: block;
+    position:absolute;
+    height:auto;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    margin: 20px;
+}
+
+
+.thermostat {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.temp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temp-display {
+    position: absolute;
+}
+
+.temp-display p {
+    font-size: 75px;
+    font-weight: bold;
+    color: #263238;
+}
+
+.target-temp {
+    border-bottom: 2px solid #263238;
+}
+
+.current-temp {
+
+}
+
+.temp svg {
+    display: inline-block;
+}
+
+.temp-text {
+    font-size: 90px;
+    font-weight: bold;
+}
+
+.temp-ring-circle {
+    transition: stroke-dashoffset 0.35s;
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+}
+
+
+.arrow-button {
+    width: 55%;
+    transition: 0.3s;
+}
+
+.arrow-button:active {
+    -ms-transform: scale(1.1, 1.1); /* IE 9 */
+    -webkit-transform: scale(1.1, 1.1); /* Safari */
+    transform: scale(1.1, 1.1);
+}
+
+.arrow-button.up img{
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Safari */
+    transform: rotate(180deg);
+}
+.arrow-button.down {
+
+}
+
+
+@media only screen and (min-width: 801px) {
+    .wrapper {
+        width: 700px;
+        height: 420px;
+    }
+}
