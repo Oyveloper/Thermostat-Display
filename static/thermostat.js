@@ -173,13 +173,14 @@ var Thermostat = function (_React$Component5) {
 
         var _this7 = _possibleConstructorReturn(this, (Thermostat.__proto__ || Object.getPrototypeOf(Thermostat)).call(this, props));
 
-        var domain = "192.168.86.31:8123";
-        var pass = 'Home-assist_2018';
+        var domain = config["hass_url"];
+        var pass = config["hass_password"];
+        var ssl_extension = config["ssl_enabled"] == "true" ? "s" : "";
         _this7.state = {
             target: parseInt(props.target),
             current: parseInt(props.current),
-            baseApiUrl: 'http://' + domain + '/api/',
-            webSocketApiUrl: 'ws://' + domain + '/api/websocket',
+            baseApiUrl: 'http' + ssl_extension + '://' + domain + '/api/',
+            webSocketApiUrl: 'ws' + ssl_extension + '://' + domain + '/api/websocket',
             api_password: pass,
             currentId: 3
         };

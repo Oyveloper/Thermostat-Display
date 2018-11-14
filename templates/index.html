@@ -8,7 +8,8 @@
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/thermostat.css')}}">
         <script type="text/javascript">
-            var arrowPath = "{{url_for('static', filename='svg/down-arrow.svg')}}"
+            var arrowPath = "{{url_for('static', filename='svg/down-arrow.svg')}}";
+            var config = {{ context["config"] | tojson | safe }};
         </script>
     </head>
     <body oncontextmenu="return false;">
