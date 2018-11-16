@@ -2,3 +2,4 @@ __pycache__
 env/*
 __init__.py
 node_modules/
+config.json

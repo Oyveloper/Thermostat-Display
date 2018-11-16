@@ -97,13 +97,15 @@ class Thermostat extends React.Component {
         var ssl_extension = config["ssl_enabled"] == "true" ?
             "s" :
             "";
+        var climate_id = config["client_id"];
         this.state = {
             target: parseInt(props.target),
             current: parseInt(props.current),
             baseApiUrl: 'http' + ssl_extension + '://' + domain + '/api/',
             webSocketApiUrl: 'ws' + ssl_extension + '://' + domain + '/api/websocket',
             api_password: pass,
-            currentId: 3
+            currentId: 3,
+            climate_id:
         };
         this.setup();
     }
@@ -192,7 +194,7 @@ class Thermostat extends React.Component {
         for (var i = 0; i < result.length; i++) {
             const entity = result[i];
             const attributes = entity["attributes"];
-            if (entity["entity_id"] == "climate.bedroom") {
+            if (entity["entity_id"] == this.state.climate_id) {
                 // This is the entity I want at least
                 const current = attributes["current_temperature"];
                 const target = attributes["temperature"];
@@ -206,7 +208,7 @@ class Thermostat extends React.Component {
 
     // Handles all event updates from homeassistant ws api
     handleWsEvent(event) {
-        if (event["data"]["entity_id"] == "climate.bedroom") {
+        if (event["data"]["entity_id"] == this.state.climate_id) {
             const attributes = event["data"]["new_state"]["attributes"];
             const current = attributes["current_temperature"];
             const target = attributes["temperature"];
@@ -247,7 +249,7 @@ class Thermostat extends React.Component {
                     service: "set_temperature",
                     // Optional
                     service_data: {
-                        entity_id: "climate.bedroom",
+                        entity_id: this.state.climate_id,
                         temperature: temp,
                     }
                 }
