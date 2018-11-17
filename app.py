@@ -3,12 +3,17 @@ import json
 
 app = Flask("Thermostat")
 
+config_dir = "static/config.json"
+
 def get_config():
+
+    global config_dir
+
     config = {
 
     }
 
-    with open("static/config.json", "r") as f:
+    with open(config_dir, "r") as f:
         obj = json.loads(f.read())
         config = obj
 
@@ -32,12 +37,13 @@ def config():
 @app.route('/set_config', methods=['POST'])
 def set_config():
     """Handle edits done to the config via frontend tool"""
+    global config_dir
 
     form_data = request.form
 
     new_config = {}
 
-    with open("static/config.json", "r+") as f:
+    with open(config_dir, "r+") as f:
         config_data = json.loads(f.read())
         for category in config_data:
             new_config[category] = form_data[category]
@@ -50,4 +56,4 @@ def set_config():
 
 
 if __name__ == "__main__":
-    app.run(host="192.168.86.201")
+    app.run()

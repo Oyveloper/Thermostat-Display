@@ -3,3 +3,4 @@ env/*
 __init__.py
 node_modules/
 config.json
+thermostat.wsgi

@@ -106,7 +106,7 @@ class Thermostat extends React.Component {
             webSocketApiUrl: 'ws' + ssl_extension + '://' + domain + '/api/websocket',
             api_password: pass,
             currentId: 3,
-            climate_id:
+            climate_id: climate_id
         };
         this.setup();
     }
@@ -183,7 +183,7 @@ class Thermostat extends React.Component {
 
         ws.onclose = function() {
             this.connectWebsocket();
-        };
+        }.bind(this);
 
     }
 

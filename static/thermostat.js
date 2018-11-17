@@ -176,13 +176,15 @@ var Thermostat = function (_React$Component5) {
         var domain = config["hass_url"];
         var pass = config["hass_password"];
         var ssl_extension = config["ssl_enabled"] == "true" ? "s" : "";
+        var climate_id = config["client_id"];
         _this7.state = {
             target: parseInt(props.target),
             current: parseInt(props.current),
             baseApiUrl: 'http' + ssl_extension + '://' + domain + '/api/',
             webSocketApiUrl: 'ws' + ssl_extension + '://' + domain + '/api/websocket',
             api_password: pass,
-            currentId: 3
+            currentId: 3,
+            climate_id: climate_id
         };
         _this7.setup();
         return _this7;
@@ -266,7 +268,7 @@ var Thermostat = function (_React$Component5) {
 
             ws.onclose = function () {
                 this.connectWebsocket();
-            };
+            }.bind(this);
         }
 
         // Handles all responses to messages sent over ws to homeassistant
@@ -279,7 +281,7 @@ var Thermostat = function (_React$Component5) {
             for (var i = 0; i < result.length; i++) {
                 var entity = result[i];
                 var attributes = entity["attributes"];
-                if (entity["entity_id"] == "climate.bedroom") {
+                if (entity["entity_id"] == this.state.climate_id) {
                     // This is the entity I want at least
                     var current = attributes["current_temperature"];
                     var target = attributes["temperature"];
@@ -296,7 +298,7 @@ var Thermostat = function (_React$Component5) {
     }, {
         key: "handleWsEvent",
         value: function handleWsEvent(event) {
-            if (event["data"]["entity_id"] == "climate.bedroom") {
+            if (event["data"]["entity_id"] == this.state.climate_id) {
                 var attributes = event["data"]["new_state"]["attributes"];
                 var current = attributes["current_temperature"];
                 var target = attributes["temperature"];
@@ -335,7 +337,7 @@ var Thermostat = function (_React$Component5) {
                     service: "set_temperature",
                     // Optional
                     service_data: {
-                        entity_id: "climate.bedroom",
+                        entity_id: this.state.climate_id,
                         temperature: temp
                     }
                 }));
