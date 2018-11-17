@@ -78,7 +78,6 @@ class ArrowButton extends React.Component {
     }
 }
 
-
 class ControlPanel extends React.Component {
     render() {
         return(
