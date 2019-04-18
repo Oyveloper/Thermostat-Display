@@ -242,7 +242,6 @@ var Thermostat = function (_React$Component5) {
                 console.log(data);
                 // Hadle end of authentication phase
                 if (data["type"] == "auth_ok") {
-                    console.log("EEEEYYY");
                     // Save the ws connection in the state
                     this.setState({
                         ws: ws
