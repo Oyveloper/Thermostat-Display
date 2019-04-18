@@ -95,6 +95,7 @@ class Thermostat extends React.Component {
         super(props);
         var domain = config["hass_url"];
         var pass = config["hass_password"];
+        var token = config["access_token"];
         var ssl_extension = config["ssl_enabled"] == "true" ?
             "s" :
             "";
@@ -105,6 +106,7 @@ class Thermostat extends React.Component {
             baseApiUrl: 'http' + ssl_extension + '://' + domain + '/api/',
             webSocketApiUrl: 'ws' + ssl_extension + '://' + domain + '/api/websocket',
             api_password: pass,
+            access_token: token,
             currentId: 3,
             climate_id: climate_id
         };
@@ -137,11 +139,11 @@ class Thermostat extends React.Component {
         var ws = new WebSocket(this.state.webSocketApiUrl);
 
         ws.addEventListener('open', function(event) {
-            // Authenticate with the websocket api
+            console.log("Heyo");
             ws.send(JSON.stringify(
                 {
                  type: "auth",
-                  api_password: this.state.api_password
+                 access_token: this.state.access_token
                 }
             ));
         }.bind(this));
@@ -149,9 +151,10 @@ class Thermostat extends React.Component {
 
         ws.onmessage = function(event) {
             const data = JSON.parse(event.data);
-
+            console.log(data);
             // Hadle end of authentication phase
             if (data["type"] == "auth_ok") {
+                console.log("EEEEYYY");
                 // Save the ws connection in the state
                 this.setState({
                     ws: ws
