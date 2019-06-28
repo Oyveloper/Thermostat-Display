@@ -3,27 +3,45 @@ import json
 
 app = Flask("Thermostat")
 
-config_dir = "static/config.json"
+config_file = "static/config.json"
 
 def get_config():
 
-    global config_dir
+    global config_file
 
     config = {
 
     }
+    try:
+        with open(config_file, "r") as f:
+            obj = json.loads(f.read())
+            config = obj
 
-    with open(config_dir, "r") as f:
-        obj = json.loads(f.read())
-        config = obj
+        return config
+    except Exception as e:
+        default_config = {
+                "hass_url": "",
+                "ssl_enabled": "",
+                "hass_password": "",
+                "client_id": "",
+                "tooken": "",
+            }
+        with open(config_file, "w+") as f:
 
-    return config
+            f.write(json.dumps(default_config))
+        return default_config
 
 @app.route('/')
 def thermostat_control():
     context = {
         "config": get_config(),
     }
+
+    if context["config"]["hass_url"] == "":
+        # config not ok
+        return redirect("/config")
+
+
     return render_template("index.html", context=context)
 
 @app.route('/config')
@@ -32,18 +50,19 @@ def config():
         "config": get_config(),
     }
 
+
     return render_template("config.html", context=context)
 
 @app.route('/set_config', methods=['POST'])
 def set_config():
     """Handle edits done to the config via frontend tool"""
-    global config_dir
+    global config_file
 
     form_data = request.form
 
     new_config = {}
 
-    with open(config_dir, "r+") as f:
+    with open(config_file, "r+") as f:
         config_data = json.loads(f.read())
         for category in config_data:
             new_config[category] = form_data[category]
