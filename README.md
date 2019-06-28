@@ -4,7 +4,7 @@ Thermostat-Display is a user interface for controlling a Home Assistant thermost
 It is designed to be used on touch devices, such as a raspberry pi with a touch display attatched. 
 
 ## Installation 
-'''bash
+```bash
 $ git clone https://github.com/Oyveloper/Thermostat-Display.git
 $ cd thermostat
 $ python3 -m venv env 
@@ -12,7 +12,7 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 $ npm install 
 $ python3 app.py 
-'''
+```
 
 
 ## Setup 
